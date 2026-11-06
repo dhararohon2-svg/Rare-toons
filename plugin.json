@@ -1,0 +1,6 @@
+{
+  "name": "Rare Toons India",
+  ","$package": "com.lagradost.cloudstream3",
+  "authors": ["Rohon"],
+  "mainClass": "com.lagradost.cloudstream3.RareToonsIndiaProvider"
+}
