@@ -5,7 +5,7 @@ import com.lagradost.cloudstream3.MainAPI
 import com.lagradost.cloudstream3.TvType
 import com.lagradost.cloudstream3.SearchResponse
 import com.lagradost.cloudstream3.LoadResponse
-import com.lagrdost.cloudstream3.Episode
+import com.lagradost.cloudstream3.Episode
 import com.lagradost.cloudstream3.HomePageResponse
 import com.lagradost.cloudstream3.newHomePageResponse
 import com.lagradost.cloudstream3.newTvSeriesSearchResponse
@@ -20,7 +20,7 @@ class RareToonsIndiaProvider : MainAPI() {
     override var lang = "hi"
     override val supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie, TvType.OVA)
 
-    override suspend fun getMainPage(page: Int): HomePageResponse {
+    override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
         val document = app.get(mainUrl).document
         val home = mutableListOf<HomePageList>()
 
@@ -63,7 +63,7 @@ class RareToonsIndiaProvider : MainAPI() {
         val description = document.selectFirst(".entry-content p, .synopsis")?.text()
         val genres = document.select(".genres a, .cat-links a").map { it.text() }
 
-        val episodes = mutableListOf<com.lagradost.cloudstream3.Episode>()
+        val episodes = mutableListOf<Episode>()
         document.select("ul.episodelist li, .les-content a, .se-c a").forEach { ep ->
             val epName = ep.text()
             val epLink = fixUrl(ep.attr("href"))
